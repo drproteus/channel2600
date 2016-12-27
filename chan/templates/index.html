@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<ul class="index-board-list">
+{% for board in boards %}
+<li><a href="/boards/{{ board.slug }}/">/{{ board.slug }}/</a>
+<p>{{ board.description }}</p></li>
+{% endfor %}
+{% endblock %}

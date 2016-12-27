@@ -1,0 +1,38 @@
+[
+  {
+    "model": "chan.board",
+    "pk": 1,
+    "fields": {
+      "name": "technology",
+      "description": "technological discourse",
+      "slug": "g"
+    }
+  },
+  {
+    "model": "chan.board",
+    "pk": 2,
+    "fields": {
+      "name": "video games",
+      "description": "console wars and why your opinion will never matter",
+      "slug": "v"
+    }
+  },
+  {
+    "model": "chan.board",
+    "pk": 3,
+    "fields": {
+      "name": "music",
+      "description": "a safe-space for being a pretentious wad",
+      "slug": "mu"
+    }
+  },
+  {
+    "model": "chan.board",
+    "pk": 4,
+    "fields": {
+      "name": "random",
+      "description": "why even bother",
+      "slug": "b"
+    }
+  }
+]

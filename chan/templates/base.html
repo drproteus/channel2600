@@ -1,0 +1,31 @@
+{% load static %}
+<html>
+  <head>
+    {% include 'head.html' %}
+    <title>2600chan - {{ title|default:"NaN!" }}</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="board-list">
+      {% for board in boards %}
+      <a href="/boards/{{ board.slug }}/">/{{ board.slug }}/</a>
+      {% endfor %} 
+      </div>
+      <div class="banner">
+      <img src="{% static "chan/images/banner0.jpg" %}"></img>
+      </div>
+      <div class="title">
+        <h1>{{ title|default:"NaN!" }}</h1>
+      </div>
+    </header>
+    <div class="container" id="main">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+  <div class="footer">
+      <div class="board-list-bottom">
+      {% for board in boards %}
+      <a href="/boards/{{ board.slug }}/">/{{ board.slug }}/</a>
+      {% endfor %} 
+  </div>
+</html>
