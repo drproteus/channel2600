@@ -12,10 +12,15 @@
       {% endfor %} 
       </div>
       <div class="banner">
-      <img src="{% static "chan/images/banner0.jpg" %}"></img>
+        <a href="/"><img src="{% static "chan/images/banner0.jpg" %}"></img></a>
       </div>
       <div class="title">
+        {% if board %}
+        <a href="/boards/{{ board.slug }}"><h1>{{ title|default:"NaN!" }}</h1></a>
+        <a class="new-thread-link" href="/boards/{{ board.slug }}/new_thread/">[ new thread ]</a>
+        {% else %}
         <h1>{{ title|default:"NaN!" }}</h1>
+        {% endif %}
       </div>
     </header>
     <div class="container" id="main">

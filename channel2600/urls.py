@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^$', index),
     url(r'^boards/([a-z]+)/$', board_index),
     url(r'^threads/(\d+)/$', thread),
+    url(r'^boards/([a-z]+)/new_thread/$', new_thread),
 ]

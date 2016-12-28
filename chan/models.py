@@ -14,6 +14,11 @@ class Thread(models.Model):
     subject = models.CharField(max_length=80, default="")
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        next_id = max(Thread.objects.last().id, Post.objects.last().id) + 1
+        self.id = next_id
+        super(Thread, self).save(*args, **kwargs)
+        
     def preview_posts(self):
         posts = []
         posts.append(self.posts.first())
@@ -33,6 +38,12 @@ class Post(models.Model):
     body = models.TextField()
     author = models.CharField(max_length=80, default="Anonymous")
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            next_id = max(Thread.objects.last().id, Post.objects.last().id) + 1
+            self.id = next_id
+        super(Post, self).save(*args, **kwargs)
 
 class Reply(models.Model):
     parent_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="replies")
