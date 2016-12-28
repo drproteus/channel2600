@@ -46,6 +46,10 @@ class Post(models.Model):
     body = models.TextField(blank=True)
     author = models.CharField(max_length=80, default="Anonymous")
     image = models.CharField(max_length=200, blank=True)
+    filename = models.CharField(max_length=200, blank=True)
+    width = models.IntegerField(default=0, blank=True)
+    height = models.IntegerField(default=0, blank=True)
+    filesize = models.DecimalField(default=0, decimal_places=1, max_digits=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):

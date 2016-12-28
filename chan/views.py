@@ -57,9 +57,13 @@ def new_thread(request, slug):
             if request.FILES.get('image'):
                 upload_response = cloudinary.uploader.upload(request.FILES['image'])
                 image = upload_response['public_id']
+                filename = request.FILES['image'].name
+                height = upload_response['height']
+                width = upload_response['width']
+                filesize = upload_response['bytes'] / 1024.0
             new_thread = Thread.objects.create(subject=subject, board=board)
-            new_post = Post.objects.create(author=author, body=body, 
-                    image=image, thread=new_thread, id=new_thread.id)
+            new_post = Post.objects.create(author=author, body=body, image=image, thread=new_thread,
+                    filename=filename, height=height, width=width, filesize=filesize)
             for reply in replies:
                 Reply.objects.create(parent_post=reply, post=new_post)
             return redirect('/thread/{}/#{}'.format(new_thread.id, new_thread.id))
@@ -81,11 +85,17 @@ def reply(request, id):
         if form.is_valid():
             author = form.cleaned_data['author']
             body, replies = process_replies(form.cleaned_data['body'])
-            image = ""
+            image = filename = ""
+            height = width = filesize = 0
             if request.FILES.get('image'):
                 upload_response = cloudinary.uploader.upload(request.FILES['image'])
                 image = upload_response['public_id']
-            new_post = Post.objects.create(author=author, body=body, image=image, thread=thread)
+                filename = request.FILES['image'].name
+                height = upload_response['height']
+                width = upload_response['width']
+                filesize = upload_response['bytes'] / 1024.0
+            new_post = Post.objects.create(author=author, body=body, image=image, thread=thread,
+                    filename=filename, height=height, width=width, filesize=filesize)
             for reply in replies:
                 Reply.objects.create(parent_post=reply, post=new_post)
             return redirect('/thread/{}/#{}'.format(thread.id, new_post.id))
@@ -109,8 +119,7 @@ def process_replies(body):
                     lines[i] = ">[>>{}](/thread/{}/#{})\n".format(post_id, post.thread.id, post_id)
                     replies.append(post)
                 else:
-                    lines[i] = ">\>\>{}".format(lines[i][2:])
+                    lines[i] = ">\>\>{}\n".format(lines[i][2:])
             except:
-                lines[i] = ">\>\>{}".format(lines[i][2:])
-        lines[i] += "\n"
+                lines[i] = ">\>\>{}\n".format(lines[i][2:])
     return "\n".join(lines), replies

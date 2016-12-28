@@ -8,6 +8,11 @@
   <div class="thread-op">
       <a name="{{ thread.id }}"></a>
     {% if post.image %}
+    <div class="post-file-details">File: 
+      <span class="post-file-filename"><a href="{% cloudinary_url post.image %}">{{ post.filename }}</a></span>
+      <span class="post-file-dimensions">({{ post.width }}x{{ post.height }}, </span>
+      <span class="post-file-filesize">{{ post.filesize }} KB)</span>
+    </div>
     {% cloudinary post.image class="thumb" %}
     {% endif %}
     <div class="post-details">
@@ -31,6 +36,11 @@
       <span class="post-replies">{% for reply in post.replies.all %}<a href="#{{reply.post.id}}">>>{{reply.post.id}}</a>{% endfor %}</span>
     </div>
     {% if post.image %}
+    <div class="post-file-details">File: 
+      <span class="post-file-filename"><a href="{% cloudinary_url post.image %}">{{ post.filename }}</a></span>
+      <span class="post-file-dimensions">({{ post.width }}x{{ post.height }}, </span>
+      <span class="post-file-filesize">{{ post.filesize }} KB)</span>
+    </div>
     {% cloudinary post.image class="thumb" %}
     {% endif %}
     {{ post.body|markdownify|safe }}
