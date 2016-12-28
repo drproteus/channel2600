@@ -1,0 +1,18 @@
+{% load chan_extras %}
+{% load cloudinary %}
+<div class="thread-op">
+    <a name="{{ thread.id }}"></a>
+  {% if post.image %}
+  {% include 'file-details.html' %}
+  {% cloudinary post.image class="thumb" %}
+  {% endif %}
+  {% include 'post-details.html' %}
+  <div class="thread-body">
+  {{ post.body|markdownify|safe }}
+  </div>
+  {% if thread_more %}
+  <div class="thread-more">
+    {{ thread.posts.count }} posts. <a href="/thread/{{ thread.id }}/#{{ thread.id }}">Click here</a> to view
+  </div>
+  {% endif %}
+</div>

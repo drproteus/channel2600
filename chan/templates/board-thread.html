@@ -2,48 +2,8 @@
 {% load chan_extras %}
 {% for post in thread.preview_posts %}
   {% if forloop.first %}
-  <div class="thread-op">
-    {% if post.image %}
-    <div class="post-file-details">File: 
-      <span class="post-file-filename"><a href="{% cloudinary_url post.image %}">{{ post.filename }}</a></span>
-      <span class="post-file-dimensions">({{ post.width }}x{{ post.height }}, </span>
-      <span class="post-file-filesize">{{ post.filesize }} KB)</span>
-    </div>
-    {% cloudinary post.image class="thumb" %}
-    {% endif %}
-    <div class="post-details">
-      <span class="thread-subject">{{ thread.subject }}</span>
-      <span class="post-author">{{ post.author }}</span>
-      <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
-      <span class="post-id">No. <a class="reply-to" data-post-id="{{ post.id }}" href="#reply-form">{{ post.id }}</a></span>
-      <span class="post-replies">{% for reply in post.replies.all %}<a href="/thread/{{ thread.id }}/#{{reply.post.id}}">>>{{reply.post.id}}</a>{% endfor %}</span>
-    </div>
-    <div class="thread-body">
-    {{ post.body|markdownify|safe }}
-    </div>
-    <div class="thread-more">
-      {{ thread.posts.count }} posts. <a href="/thread/{{ thread.id }}/#{{ thread.id }}">Click here</a> to view
-    </div>
-  </div>
+  {% include 'thread-op.html' with thread_more=True %}
   {% else %}
-  <div class="post">
-    <a name="{{ post.id }}"></a>
-    <div class="post-details">
-      <span class="post-author">{{ post.author }}</span>
-      <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
-      <span class="post-id">No. <a class="reply-to" data-post-id="{{ post.id }}" href="#reply-form">{{ post.id }}</a></span>
-      <span class="post-replies">{% for reply in post.replies.all %}<a href="/thread/{{ thread.id }}/#{{reply.post.id}}">>>{{reply.post.id}}</a>{% endfor %}</span>
-    </div>
-    {% if post.image %}
-    <div class="post-file-details">File: 
-      <span class="post-file-filename"><a href="{% cloudinary_url post.image %}">{{ post.filename }}</a></span>
-      <span class="post-file-dimensions">({{ post.width }}x{{ post.height }}, </span>
-      <span class="post-file-filesize">{{ post.filesize }} KB)</span>
-    </div>
-    {% cloudinary post.image class="thumb" %}
-    {% endif %}
-    {{ post.body|markdownify|safe }}
-  </div>
-  <br>
+  {% include 'post.html' %}
   {% endif %}
 {% endfor %}

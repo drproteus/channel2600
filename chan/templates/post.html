@@ -1,0 +1,12 @@
+{% load chan_extras %}
+{% load cloudinary %}
+<div class="post">
+  <a name="{{ post.id }}"></a>
+  {% include 'post-details.html' %}
+  {% if post.image %}
+  {% include 'file-details.html' %}
+  {% cloudinary post.image class="thumb" %}
+  {% endif %}
+  {{ post.body|markdownify|safe }}
+</div>
+<br>

@@ -1,0 +1,6 @@
+{% load cloudinary %}
+<div class="post-file-details">File: 
+  <span class="post-file-filename"><a href="{% cloudinary_url post.image %}">{{ post.filename }}</a></span>
+  <span class="post-file-dimensions">({{ post.width }}x{{ post.height }}, </span>
+  <span class="post-file-filesize">{{ post.filesize }} KB)</span>
+</div>
