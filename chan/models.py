@@ -13,6 +13,8 @@ class Board(models.Model):
 class Thread(models.Model):
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     subject = models.CharField(max_length=80, default="")
+    locked = models.BooleanField(default=False)
+    sticky = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
