@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from chan.models import *
 from chan.forms import *
+import cloudinary
 
 def index(request):
     boards = Board.objects.all()
@@ -34,13 +35,18 @@ def new_thread(request, slug):
     if request.method == 'GET':
         form = ThreadForm(initial={'author': "Anonymous"})
     else:
-        form = ThreadForm(request.POST)
+        form = ThreadForm(request.POST, request.FILES)
         if form.is_valid():
             subject = form.cleaned_data['subject']
             author = form.cleaned_data['author']
             body = form.cleaned_data['body']
+            image = ""
+            if request.FILES.get('image'):
+                upload_response = cloudinary.uploader.upload(request.FILES['image'])
+                image = upload_response['public_id']
             new_thread = Thread.objects.create(subject=subject, board=board)
-            new_post = Post.objects.create(author=author, body=body, thread=new_thread, id=new_thread.id)
+            new_post = Post.objects.create(author=author, body=body, 
+                    image=image, thread=new_thread, id=new_thread.id)
             return redirect('/thread/{}/'.format(new_thread.id))
     return render(request, 'new_thread.html', {
         'form': form,
@@ -56,11 +62,15 @@ def reply(request, id):
     if request.method == 'GET':
         form = PostForm(initial={'author': "Anonymous"})
     else:
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             author = form.cleaned_data['author']
             body = form.cleaned_data['body']
-            new_post = Post.objects.create(author=author, body=body, thread=thread)
+            image = ""
+            if request.FILES.get('image'):
+                upload_response = cloudinary.uploader.upload(request.FILES['image'])
+                image = upload_response['public_id']
+            new_post = Post.objects.create(author=author, body=body, image=image, thread=thread)
             return redirect('/thread/{}/'.format(thread.id))
     return render(request, 'reply.html', {
         'form': form,

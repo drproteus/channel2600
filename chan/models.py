@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib import admin
+from cloudinary.models import CloudinaryField
 
 class Board(models.Model):
     name = models.CharField(max_length=30)
@@ -15,7 +16,7 @@ class Thread(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        next_id = max(Thread.objects.last().id, Post.objects.last().id) + 1
+        next_id = max(Thread.last_id(), Post.last_id()) + 1
         self.id = next_id
         super(Thread, self).save(*args, **kwargs)
         
@@ -33,17 +34,32 @@ class Thread(models.Model):
     def __str__(self):
         return self.subject
 
+    @classmethod
+    def last_id(klass):
+        if not klass.objects.last():
+            return 0
+        else:
+            return klass.objects.last().id
+
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="posts")
-    body = models.TextField()
+    body = models.TextField(blank=True)
     author = models.CharField(max_length=80, default="Anonymous")
+    image = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.id:
-            next_id = max(Thread.objects.last().id, Post.objects.last().id) + 1
+            next_id = max(Thread.last_id(), Post.last_id()) + 1
             self.id = next_id
         super(Post, self).save(*args, **kwargs)
+
+    @classmethod
+    def last_id(klass):
+        if not klass.objects.last():
+            return 0
+        else:
+            return klass.objects.last().id
 
 class Reply(models.Model):
     parent_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="replies")
