@@ -53,7 +53,8 @@ def new_thread(request, slug):
             subject = form.cleaned_data['subject']
             author = form.cleaned_data['author']
             body, replies = process_replies(form.cleaned_data['body'])
-            image = ""
+            image = filename = ""
+            height = width = filesize = 0
             if request.FILES.get('image'):
                 upload_response = cloudinary.uploader.upload(request.FILES['image'])
                 image = upload_response['public_id']
