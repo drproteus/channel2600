@@ -80,10 +80,12 @@ def reply(request, id):
     thread = get_object_or_404(Thread, id=id)
     board = thread.board
     if request.method == 'GET':
-        form = PostForm(initial={'author': "Anonymous"})
+        return redirect('/thread/{}/'.format(thread.id))
     else:
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
+            if thread.locked:
+                raise ValidationError, "Thread is locked. You cannot reply."
             author = form.cleaned_data['author']
             body, replies = process_replies(form.cleaned_data['body'])
             image = filename = ""
