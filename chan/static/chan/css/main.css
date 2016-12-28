@@ -82,6 +82,9 @@ body {
 .thread-op {
     margin: 10px;
 }
+.thread-body {
+    min-height: 50px;
+}
 .post {
     margin: 10px;
     padding: 20px;

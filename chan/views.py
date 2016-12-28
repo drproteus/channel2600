@@ -21,12 +21,26 @@ def thread(request, id):
     thread = get_object_or_404(Thread, id=id)
     board = thread.board
     posts = thread.posts.all()
+    if request.method == 'GET':
+        form = PostForm(initial={'author': "Anonymous"})
+    else:
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            author = form.cleaned_data['author']
+            body = form.cleaned_data['body']
+            image = ""
+            if request.FILES.get('image'):
+                upload_response = cloudinary.uploader.upload(request.FILES['image'])
+                image = upload_response['public_id']
+            new_post = Post.objects.create(author=author, body=body, image=image, thread=thread)
+            return redirect('/thread/{}/'.format(thread.id))
     return render(request, 'thread.html', {
         'title': thread.board.name,
         'board': board,
         'boards': boards,
         'thread': thread,
-        'posts': posts
+        'posts': posts,
+        'form': form
         })
 
 def new_thread(request, slug):
@@ -47,7 +61,7 @@ def new_thread(request, slug):
             new_thread = Thread.objects.create(subject=subject, board=board)
             new_post = Post.objects.create(author=author, body=body, 
                     image=image, thread=new_thread, id=new_thread.id)
-            return redirect('/thread/{}/'.format(new_thread.id))
+            return redirect('/thread/{}/#{}'.format(new_thread.id, new_thread.id))
     return render(request, 'new_thread.html', {
         'form': form,
         'boards': boards,
@@ -71,8 +85,8 @@ def reply(request, id):
                 upload_response = cloudinary.uploader.upload(request.FILES['image'])
                 image = upload_response['public_id']
             new_post = Post.objects.create(author=author, body=body, image=image, thread=thread)
-            return redirect('/thread/{}/'.format(thread.id))
-    return render(request, 'reply.html', {
+            return redirect('/thread/{}/#{}'.format(thread.id, new_post.id))
+    return render(request, 'thread.html', {
         'form': form,
         'thread': thread,
         'boards': boards,

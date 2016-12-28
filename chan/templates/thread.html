@@ -2,10 +2,12 @@
 {% load chan_extras %}
 {% load cloudinary %}
 {% block content %}
+{% include 'reply.html' %}
 <section class="thread">
 {% for post in posts %}
   {% if forloop.first %}
   <div class="thread-op">
+      <a name="{{ thread.id }}"></a>
     {% if post.image %}
     {% cloudinary post.image class="thumb" %}
     {% endif %}
@@ -15,10 +17,13 @@
       <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
       <span class="post-id">No. {{ post.id }}</span>
     </div>
+    <div class="thread-body">
     {{ post.body|markdownify|safe }}
+    </div>
   </div>
   {% else %}
   <div class="post">
+      <a name="{{ post.id }}"></a>
     <div class="post-details">
       <span class="post-author">{{ post.author }}</span>
       <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>

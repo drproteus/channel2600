@@ -18,7 +18,6 @@
         {% if board %}
         <a href="/board/{{ board.slug }}"><h1>{{ title|default:"NaN!" }}</h1></a>
         {% if thread %}
-        <div class="new-thread-link"><a href="/thread/{{ thread.id }}/reply/">[ reply ]</a></div>
         {% else %}
         <div class="new-thread-link"><a href="/board/{{ board.slug }}/new_thread/">[ new thread ]</a></div>
         {% endif %}
