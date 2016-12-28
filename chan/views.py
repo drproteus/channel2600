@@ -12,7 +12,7 @@ def index(request):
 def board_index(request, slug):
     boards = Board.objects.all()
     board = get_object_or_404(Board, slug=slug)
-    threads = board.thread_set.order_by("-id")
+    threads = board.thread_set.order_by("-sticky", "-id")
     return render(request, 'board.html', {'title': board.name,
         'boards': boards, 'board': board, 'threads': threads})
 
@@ -63,7 +63,7 @@ def new_thread(request, slug):
                 width = upload_response['width']
                 filesize = upload_response['bytes'] / 1024.0
             new_thread = Thread.objects.create(subject=subject, board=board)
-            new_post = Post.objects.create(author=author, body=body, image=image, thread=new_thread,
+            new_post = Post.objects.create(id=new_thread.id, author=author, body=body, image=image, thread=new_thread,
                     filename=filename, height=height, width=width, filesize=filesize)
             for reply in replies:
                 Reply.objects.create(parent_post=reply, post=new_post)

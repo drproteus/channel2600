@@ -63,6 +63,13 @@ class Post(models.Model):
             self.id = next_id
         super(Post, self).save(*args, **kwargs)
 
+    def __str__(self):
+        _str = "Post #{}: ".format(self.id)
+        if self.filename:
+            _str += self.filename
+            _str += " "
+        return _str + self.body[:20].encode('utf-8')
+
     @classmethod
     def last_id(klass):
         if not klass.objects.last():
