@@ -184,6 +184,10 @@ ul.errorlist {
     color: green;
 }
 
+.thread-op blockquote {
+    color: green;
+}
+
 .post-replies {
     padding-left: 5px;
 }
