@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from chan.models import *
 from chan.forms import *
@@ -9,12 +10,16 @@ def index(request):
     boards = Board.objects.all()
     return render(request, 'index.html', {'title': "Index", 'boards': boards})
 
-def board_index(request, slug):
+def board_index(request, slug, page=1):
     boards = Board.objects.all()
     board = get_object_or_404(Board, slug=slug)
-    threads = board.thread_set.order_by("-sticky", "-updated_at")
+    all_threads = Paginator(board.thread_set.order_by("-sticky", "-updated_at"), 10)
+    threads = all_threads.page(page)
+    next_page = min(int(page)+1, all_threads.num_pages)
     return render(request, 'board.html', {'title': board.name,
-        'boards': boards, 'board': board, 'threads': threads})
+        'boards': boards, 'board': board, 'threads': threads,
+        'page': int(page), 'pages': range(1, all_threads.num_pages+1),
+        'next_page': next_page})
 
 def thread(request, id):
     boards = Board.objects.all()

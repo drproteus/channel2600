@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', index),
     url(r'^board/([a-z]+)/$', board_index),
+    url(r'^board/([a-z]+)/(\d+)/$', board_index),
     url(r'^thread/(\d+)/$', thread),
     url(r'^board/([a-z]+)/new_thread/$', new_thread),
     url(r'^thread/(\d+)/reply/$', reply),

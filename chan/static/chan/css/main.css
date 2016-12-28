@@ -209,3 +209,13 @@ ul.errorlist {
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.page-link-active {
+    font-weight: bold;
+}
+
+.pagination {
+    border-top: 1px solid #aaa;
+    padding-top: 10px;
+    padding-left: 10px;
+}

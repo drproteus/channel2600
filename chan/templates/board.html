@@ -6,5 +6,13 @@
   {% include 'board-thread.html' %}
   </section>
   {% endfor %}
+  {% if page %}
+  <div class="pagination">
+      {% for i in pages %}
+      <span class="page-link{% if i == page %} page-link-active{%endif%}"><a href="/board/{{ board.slug }}/{{ i }}/">{{i}}</a></span>
+      {% endfor %}
+      <a href="/board/{{ board.slug }}/{{ next_page }}/">Next</a>
+  </div>
+  {% endif %}
 {% endif %}
 {% endblock %}

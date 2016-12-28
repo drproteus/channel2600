@@ -12,7 +12,7 @@
   </div>
   {% if thread_more %}
   <div class="thread-more">
-    {{ thread.posts.count }} posts. <a href="/thread/{{ thread.id }}/#{{ thread.id }}">Click here</a> to view
+    {{ thread.posts.count }} post{{ thread.posts.count|pluralize }}. <a href="/thread/{{ thread.id }}/#{{ thread.id }}">Click here</a> to view
   </div>
   {% endif %}
 </div>
