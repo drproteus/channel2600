@@ -20,8 +20,9 @@ class Thread(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        next_id = max(Thread.last_id(), Post.last_id()) + 1
-        self.id = next_id
+        if not self.id:
+            next_id = max(Thread.last_id(), Post.last_id()) + 1
+            self.id = next_id
         super(Thread, self).save(*args, **kwargs)
         
     def preview_posts(self):
