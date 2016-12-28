@@ -1,3 +1,4 @@
+<a name="reply-form"></a>
 <form class="new-form" action="/thread/{{ thread.id }}/reply/" method="POST"
   enctype="multipart/form-data">{% csrf_token %}
   {{ form.as_p }}

@@ -10,7 +10,7 @@
       <span class="thread-subject">{{ thread.subject }}</span>
       <span class="post-author">{{ post.author }}</span>
       <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
-      <span class="post-id">No. {{ post.id }}</span>
+      <span class="post-id">No. <a class="reply-to" data-post-id="{{ post.id }}" href="#reply-form">{{ post.id }}</a></span>
     </div>
     <div class="thread-body">
     {{ post.body|markdownify|safe }}
@@ -25,7 +25,7 @@
     <div class="post-details">
       <span class="post-author">{{ post.author }}</span>
       <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
-      <span class="post-id">No. {{ post.id }}</span>
+      <span class="post-id">No. <a class="reply-to" data-post-id="{{ post.id }}" href="#reply-form">{{ post.id }}</a></span>
     </div>
     {% if post.image %}
     {% cloudinary post.image class="thumb" %}

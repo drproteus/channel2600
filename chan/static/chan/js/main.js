@@ -17,4 +17,15 @@ function initThumbnails() {
   console.log('foo');
 }
 
-ready(initThumbnails)
+function initReplyLinks() {
+  document.querySelectorAll('.reply-to').forEach(function(item) {
+    item.addEventListener('click', function(event) {
+      console.log('kasdjlas');
+      var replyId = event.target.dataset['postId'];
+      document.querySelector('#id_body').value += ('\n>>' + replyId + '\n');
+    });
+  });
+}
+
+ready(initThumbnails);
+ready(initReplyLinks);
