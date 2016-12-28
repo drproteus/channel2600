@@ -6,6 +6,10 @@
   {% include 'file-details.html' %}
   {% include 'post-image.html' %}
   {% endif %}
+  {% if page %}
+  {{ post.body|truncatechars:500|markdownify|safe }}
+  {% else %}
   {{ post.body|markdownify|safe }}
+  {% endif %}
 </div>
 <br>

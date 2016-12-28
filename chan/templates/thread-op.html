@@ -8,7 +8,11 @@
   {% endif %}
   {% include 'post-details.html' %}
   <div class="thread-body">
+  {% if page %}
+  {{ post.body|truncatechars:500|markdownify|safe }}
+  {% else %}
   {{ post.body|markdownify|safe }}
+  {% endif %}
   </div>
   {% if thread_more %}
   <div class="thread-more">
