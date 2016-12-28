@@ -101,7 +101,7 @@ def process_replies(body):
     lines = body.split("\n")
     replies = []
     for i in range(len(lines)):
-        if lines[i][:2] == ">>":
+        if lines[i][0] == ">":
             try:
                 if Post.objects.filter(id=lines[i][2:]).count() > 0:
                     post_id = lines[i][2:].strip()
