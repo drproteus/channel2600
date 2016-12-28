@@ -1,0 +1,10 @@
+{% extends 'base.html'%}
+{% block content %}
+{% if threads %}
+  {% for thread in threads %}
+  <section class="thread" id="thread-{{thread.id}}">
+  {% include 'board-thread.html' %}
+  </section>
+  {% endfor %}
+{% endif %}
+{% endblock %}

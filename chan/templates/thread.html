@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load chan_extras %}
+<section class="thread">
+{% for post in posts %}
+  {% if forloop.first %}
+  <div class="thread-op">
+    <img src="http://placekitten.com/g/200/200/" class="thumb"></img>
+    <div class="post-details">
+      <span class="thread-subject">{{ thread.subject }}</span>
+      <span class="post-author">{{ post.author }}</span>
+      <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
+      <span class="post-id">No. {{ post.id }}</span>
+    </div>
+    {{ post.body|markdownify|safe }}
+  </div>
+  {% else %}
+  <div class="post">
+    <div class="post-details">
+      <span class="thread-subject">{{ thread.subkect }}</span>
+      <span class="post-author">{{ post.author }}</span>
+      <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
+      <span class="post-id">No. {{ post.id }}</span>
+    </div>
+    <img src="http://placekitten.com/g/200/200/" class="thumb"></img>
+    {{ post.body|markdownify|safe }}
+  </div>
+  <br>
+  {% endif %}
+{% endfor %}
+</section>
+{% endblock %}

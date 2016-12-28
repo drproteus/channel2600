@@ -10,7 +10,6 @@ html {
 
 body {
     font-family: sans-serif;
-    font-size: 20px;
     margin-bottom: 70px;
 }
 
@@ -37,20 +36,19 @@ body {
 }
 
 .header {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #aaa;
 }
 
 .board-list {
+    background-color: #ddd;
     padding: 20px;
     font-size: 12px;
-    border-bottom: 1px solid #aaa;
 }
 
 .board-list-bottom {
+    background-color: #ddd;
     padding: 20px;
     font-size: 12px;
-    border-top: 1px solid #aaa;
+
 }
 
 .board-list a {
@@ -77,4 +75,52 @@ body {
 }
 
 .container {
+    padding: 20px;
 }
+
+.thread {
+    border-top: 1px solid #aaa;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.thread-op {
+    margin: 10px;
+}
+.post {
+    margin: 10px;
+    padding: 20px;
+    background-color: #ddd;
+    display: inline-block;
+    clear: both;
+}
+
+.thumb {
+    float: left;
+    margin-right: 20px;
+}
+
+.thumb {
+
+}
+
+.thread-more {
+    margin-top: 10px;
+}
+
+.post-details {
+    margin-bottom: 10px;
+}
+
+.post-details .thread-subject {
+    color: purple;
+    font-weight: bold;
+}
+
+.post-details .post-author {
+    font-weight: bold;
+}
+
+

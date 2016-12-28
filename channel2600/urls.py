@@ -19,5 +19,6 @@ from chan.views import *
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', index),
-    url(r'^boards/([a-z]+)/$', board_index)
+    url(r'^boards/([a-z]+)/$', board_index),
+    url(r'^threads/(\d+)/$', thread),
 ]
