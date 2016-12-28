@@ -12,5 +12,5 @@
   <span class="post-author">{{ post.author }}</span>
   <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
   <span class="post-id">No. <a class="reply-to" data-post-id="{{ post.id }}" href="#reply-form">{{ post.id }}</a></span>
-  <span class="post-replies">{% for reply in post.replies.all %}<a href="#{{reply.post.id}}">>>{{reply.post.id}}</a>{% endfor %}</span>
+  <span class="post-replies">{% for reply in post.replies.all %}<a href="/thread/{{ thread.id }}/#{{reply.post.id}}">>>{{reply.post.id}}</a>{% endfor %}</span>
 </div>
