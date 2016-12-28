@@ -98,15 +98,19 @@ def reply(request, id):
         })
 
 def process_replies(body):
-    lines = body.split('\n')
+    lines = body.split("\n")
     replies = []
     for i in range(len(lines)):
         if lines[i][:2] == ">>":
-            if Post.objects.filter(id=lines[i][2:]).count() > 0:
-                post_id = lines[i][2:].strip()
-                post = Post.objects.get(id=post_id)
-                lines[i] = ">[&gt;&gt;{}](/thread/{}/#{})\n".format(post_id, post.thread.id, post_id)
-                replies.append(post)
-            else:
-                lines[i] = ">&gt;&gt;{}".format(lines[i][2:])
+            try:
+                if Post.objects.filter(id=lines[i][2:]).count() > 0:
+                    post_id = lines[i][2:].strip()
+                    post = Post.objects.get(id=post_id)
+                    lines[i] = ">[>>{}](/thread/{}/#{})\n".format(post_id, post.thread.id, post_id)
+                    replies.append(post)
+                else:
+                    lines[i] = ">\>\>{}".format(lines[i][2:])
+            except:
+                lines[i] = ">\>\>{}".format(lines[i][2:])
+        lines[i] += "\n"
     return "\n".join(lines), replies

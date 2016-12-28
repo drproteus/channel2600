@@ -172,3 +172,6 @@ ul.errorlist {
     color: white;
 }
 
+.post blockquote {
+    color: green;
+}
