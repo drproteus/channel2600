@@ -2,7 +2,7 @@
 {% for post in thread.preview_posts %}
   {% if forloop.first %}
   <div class="thread-op">
-    <img src="http://placekitten.com/g/200/200/" class="thumb"></img>
+    <img src="http://placekitten.com/g/400/500/" class="thumb"></img>
     <div class="post-details">
       <span class="thread-subject">{{ thread.subject }}</span>
       <span class="post-author">{{ post.author }}</span>
@@ -11,13 +11,12 @@
     </div>
     {{ post.body|markdownify|safe }}
     <div class="thread-more">
-      {{ thread.posts.count }} posts. <a href="/threads/{{ thread.id }}/">Click here</a> to view
+      {{ thread.posts.count }} posts. <a href="/thread/{{ thread.id }}/">Click here</a> to view
     </div>
   </div>
   {% else %}
   <div class="post">
     <div class="post-details">
-      <span class="thread-subject">{{ thread.subkect }}</span>
       <span class="post-author">{{ post.author }}</span>
       <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
       <span class="post-id">No. {{ post.id }}</span>

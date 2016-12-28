@@ -41,10 +41,32 @@ def new_thread(request, slug):
             body = form.cleaned_data['body']
             new_thread = Thread.objects.create(subject=subject, board=board)
             new_post = Post.objects.create(author=author, body=body, thread=new_thread, id=new_thread.id)
-            return redirect('/threads/{}/'.format(new_thread.id))
+            return redirect('/thread/{}/'.format(new_thread.id))
     return render(request, 'new_thread.html', {
         'form': form,
         'boards': boards,
         'board': board,
         'title': board.name
         })
+
+def reply(request, id):
+    boards = Board.objects.all()
+    thread = get_object_or_404(Thread, id=id)
+    board = thread.board
+    if request.method == 'GET':
+        form = PostForm(initial={'author': "Anonymous"})
+    else:
+        form = PostForm(request.POST)
+        if form.is_valid():
+            author = form.cleaned_data['author']
+            body = form.cleaned_data['body']
+            new_post = Post.objects.create(author=author, body=body, thread=thread)
+            return redirect('/thread/{}/'.format(thread.id))
+    return render(request, 'reply.html', {
+        'form': form,
+        'thread': thread,
+        'boards': boards,
+        'board': board,
+        'title': board.name
+        })
+

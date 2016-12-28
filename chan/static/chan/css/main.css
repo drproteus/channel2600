@@ -35,6 +35,10 @@ body {
     text-align: center;
 }
 
+.title h1 {
+    display: inline-block;
+}
+
 .header {
 }
 
@@ -96,15 +100,25 @@ body {
     background-color: #ddd;
     display: inline-block;
     clear: both;
+    min-width: 50%;
 }
 
 .thumb {
     float: left;
     margin-right: 20px;
+    width: 200px;
+    height: auto;
 }
 
-.thumb {
+.thumb:hover {
+    cursor: pointer;
+}
 
+.thumb-selected {
+    float: left;
+    margin-right: 20px;
+    width: auto;
+    height: auto;
 }
 
 .thread-more {
@@ -150,4 +164,9 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 20px;
+}
+
+.new-thread-link {
+    display: block;
+    margin-top: 20px;
 }

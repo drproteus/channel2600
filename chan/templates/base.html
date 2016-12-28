@@ -8,7 +8,7 @@
     <header class="header">
       <div class="board-list">
       {% for board in boards %}
-      <a href="/boards/{{ board.slug }}/">/{{ board.slug }}/</a>
+      <a href="/board/{{ board.slug }}/">/{{ board.slug }}/</a>
       {% endfor %} 
       </div>
       <div class="banner">
@@ -16,8 +16,12 @@
       </div>
       <div class="title">
         {% if board %}
-        <a href="/boards/{{ board.slug }}"><h1>{{ title|default:"NaN!" }}</h1></a>
-        <a class="new-thread-link" href="/boards/{{ board.slug }}/new_thread/">[ new thread ]</a>
+        <a href="/board/{{ board.slug }}"><h1>{{ title|default:"NaN!" }}</h1></a>
+        {% if thread %}
+        <div class="new-thread-link"><a href="/thread/{{ thread.id }}/reply/">[ reply ]</a></div>
+        {% else %}
+        <div class="new-thread-link"><a href="/board/{{ board.slug }}/new_thread/">[ new thread ]</a></div>
+        {% endif %}
         {% else %}
         <h1>{{ title|default:"NaN!" }}</h1>
         {% endif %}
@@ -30,7 +34,7 @@
   <div class="footer">
       <div class="board-list-bottom">
       {% for board in boards %}
-      <a href="/boards/{{ board.slug }}/">/{{ board.slug }}/</a>
+      <a href="/board/{{ board.slug }}/">/{{ board.slug }}/</a>
       {% endfor %} 
   </div>
 </html>
