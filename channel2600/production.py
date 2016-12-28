@@ -1,4 +1,4 @@
-from channel2600 import settings
+from channel2600.settings import *
 import dj_database_url
 
 DEBUG=False
