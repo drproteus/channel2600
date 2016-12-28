@@ -13,6 +13,10 @@ body {
     margin-bottom: 70px;
 }
 
+a {
+    text-decoration: none;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -198,4 +202,10 @@ ul.errorlist {
 
 .clearfix::after {
     content: "";
+}
+
+.embed-link {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
 }

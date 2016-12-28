@@ -33,5 +33,35 @@ function initReplyLinks() {
   });
 }
 
+function addYoutubeEmbedLinks() {
+  var youtubelinks = [].slice.call(document.querySelectorAll('a')).filter(function(el) {
+    if (el.href.indexOf('youtu.be') !== -1 || el.href.indexOf('youtube') !== -1) {
+      var id = el.href.split('/').slice(-1)[0];
+      insertAfter(el, youtubeEmbedLink(id));
+    }
+  });
+}
+
+function youtubeEmbedLink(id) {
+  var youtubeDiv = document.createElement('div');
+  youtubeDiv.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'+id+'" frameborder="0" allowfullscreen></iframe>';
+  var embedlink = document.createElement('a');
+  embedlink.classList.add('embed-link');
+  embedlink.innerHTML = "[Embed]";
+  embedlink.href = "#";
+  embedlink.addEventListener('click', function(event) {
+    event.preventDefault();
+    insertAfter(embedlink, youtubeDiv);
+    embedlink.remove();
+  });
+  return embedlink;
+}
+
+
+function insertAfter(element, after) {
+  element.parentNode.insertBefore(after, element.nextSibling);
+}
+
 ready(initThumbnails);
 ready(initReplyLinks);
+ready(addYoutubeEmbedLinks);
