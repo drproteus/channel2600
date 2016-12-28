@@ -7,3 +7,4 @@ Markdown==2.6.7
 six==1.10.0
 urllib3==1.19.1
 whitenoise==3.2.2
+psycopg2
