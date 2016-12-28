@@ -4,7 +4,7 @@
     <a name="{{ thread.id }}"></a>
   {% if post.image %}
   {% include 'file-details.html' %}
-  {% cloudinary post.image class="thumb" %}
+  {% include 'post-image.html' %}
   {% endif %}
   {% include 'post-details.html' %}
   <div class="thread-body">

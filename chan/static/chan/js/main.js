@@ -7,7 +7,13 @@ function ready(fn) {
 }
 
 function toggleThumbnail(event) {
-  event.target.classList.toggle('thumb-selected');
+  if (event.target.classList.contains('thumb-selected')) {
+    event.target.classList.remove('thumb-selected');
+    event.target.src = event.target.dataset['thumbUrl'];
+  } else {
+    event.target.classList.add('thumb-selected');
+    event.target.src = event.target.dataset['fullUrl'];
+  }
 }
 
 function initThumbnails() {

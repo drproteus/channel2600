@@ -1,0 +1,5 @@
+{% load cloudinary %}
+<img src="{% cloudinary_url post.image width="200" %}" class="thumb"
+data-thumb-url="{% cloudinary_url post.image width="200" %}"
+data-full-url="{% cloudinary_url post.image %}"
+></img>
