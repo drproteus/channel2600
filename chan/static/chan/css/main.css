@@ -32,6 +32,7 @@ a {
 
 .banner img {
     width: 500px;
+    max-width: 90%;
     height: auto;
 }
 
@@ -137,6 +138,7 @@ a {
 
 .new-form {
     width: 400px;
+    max-width: 90%;
     margin: auto;
     padding: 10px;
     background: #ddd;
@@ -218,4 +220,10 @@ ul.errorlist {
     border-top: 1px solid #aaa;
     padding-top: 10px;
     padding-left: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .thread-op .thumb {
+        float: none;
+    }
 }
