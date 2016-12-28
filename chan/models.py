@@ -1,6 +1,8 @@
 from django.db import models
+from django.db.models.signals import post_delete, pre_delete
+from django.dispatch import receiver
 from django.contrib import admin
-from cloudinary.models import CloudinaryField
+import cloudinary
 
 class Board(models.Model):
     name = models.CharField(max_length=30)
@@ -34,7 +36,7 @@ class Thread(models.Model):
         return posts
 
     def __str__(self):
-        return self.subject
+        return self.subject.encode('utf-8')
 
     @classmethod
     def last_id(klass):
@@ -74,6 +76,10 @@ class Reply(models.Model):
 
 class Ban(models.Model):
     pass
+
+@receiver(post_delete, sender=Post)
+def delete_cloudinary_image(sender, instance, **kwargs):
+    cloudinary.api.delete_resources([instance.image])
 
 admin.site.register(Board)
 admin.site.register(Thread)
