@@ -136,6 +136,7 @@ body {
     margin: auto;
     padding: 10px;
     background: #ddd;
+    text-align: left;
 }
 
 .new-form input {
