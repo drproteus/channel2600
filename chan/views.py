@@ -61,7 +61,7 @@ def new_thread(request, slug):
             new_post = Post.objects.create(author=author, body=body, 
                     image=image, thread=new_thread, id=new_thread.id)
             for reply in replies:
-                Reply.objects.create(parent_post=new_post, post=reply)
+                Reply.objects.create(parent_post=reply, post=new_post)
             return redirect('/thread/{}/#{}'.format(new_thread.id, new_thread.id))
     return render(request, 'new_thread.html', {
         'form': form,
@@ -87,7 +87,7 @@ def reply(request, id):
                 image = upload_response['public_id']
             new_post = Post.objects.create(author=author, body=body, image=image, thread=thread)
             for reply in replies:
-                Reply.objects.create(parent_post=new_post, post=reply)
+                Reply.objects.create(parent_post=reply, post=new_post)
             return redirect('/thread/{}/#{}'.format(thread.id, new_post.id))
     return render(request, 'thread.html', {
         'form': form,
@@ -101,7 +101,7 @@ def process_replies(body):
     lines = body.split("\n")
     replies = []
     for i in range(len(lines)):
-        if lines[i][0] == ">":
+        if lines[i][:1] == ">":
             try:
                 if Post.objects.filter(id=lines[i][2:]).count() > 0:
                     post_id = lines[i][2:].strip()

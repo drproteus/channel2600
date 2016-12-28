@@ -17,10 +17,13 @@
       <div class="title">
         {% if board %}
         <a href="/board/{{ board.slug }}"><h1>{{ title|default:"NaN!" }}</h1></a>
+        <div class="new-thread-link">
         {% if thread %}
+        {% include 'reply.html' %}
         {% else %}
-        <div class="new-thread-link"><a href="/board/{{ board.slug }}/new_thread/">[ new thread ]</a></div>
+        <a href="/board/{{ board.slug }}/new_thread/">[ new thread ]</a>
         {% endif %}
+        </div>
         {% else %}
         <h1>{{ title|default:"NaN!" }}</h1>
         {% endif %}
