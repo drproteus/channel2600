@@ -18,6 +18,7 @@ class Thread(models.Model):
     locked = models.BooleanField(default=False)
     sticky = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.id:
