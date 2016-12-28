@@ -2,6 +2,12 @@
 <div class="post-details">
   {% if post.id == thread.id %}
   <span class="thread-subject">{{ thread.subject }}</span>
+  {% if thread.sticky %}
+  <span>📌  </span>
+  {% endif %}
+  {% if thread.locked %}
+  <span>🔒  </span>
+  {% endif %}
   {% endif %}
   <span class="post-author">{{ post.author }}</span>
   <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
