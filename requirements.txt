@@ -1,2 +1,6 @@
+cloudinary==1.5.0
 Django==1.8.13
+django-recaptcha==1.2.0
 Markdown==2.6.7
+six==1.10.0
+urllib3==1.19.1
