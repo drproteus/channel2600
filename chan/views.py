@@ -25,7 +25,7 @@ def thread(request, id):
     boards = Board.objects.all()
     thread = get_object_or_404(Thread, id=id)
     board = thread.board
-    posts = thread.posts.all()
+    posts = thread.posts.order_by("id")
     if request.method == 'GET':
         form = PostForm(initial={'author': "Anonymous"})
     else:

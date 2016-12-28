@@ -28,8 +28,8 @@ class Thread(models.Model):
         
     def preview_posts(self):
         posts = []
-        posts.append(self.posts.first())
-        all_posts = self.posts.all()
+        posts.append(self.posts.order_by("id").first())
+        all_posts = self.posts.order_by("id")
         post_count = self.posts.count()
         if post_count < 6:
             posts.extend(all_posts[1:])
