@@ -73,7 +73,6 @@ a {
 
 .container {
     padding: 20px;
-    min-height: 400px;
 }
 
 .thread {
@@ -83,6 +82,10 @@ a {
     margin-top: 20px;
     margin-bottom: 20px;
     overflow: auto;
+}
+
+.thread .main {
+    min-height: 400px;
 }
 
 .thread-op {

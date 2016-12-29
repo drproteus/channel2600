@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load cloudinary %}
 {% block content %}
-<section class="thread">
+<section class="thread main">
 {% for post in posts %}
   {% if forloop.first %}
   {% include 'thread-op.html' %}
