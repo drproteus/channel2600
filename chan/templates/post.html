@@ -1,15 +1,17 @@
 {% load chan_extras %}
-<div class="post">
+<div class="post" id="post-{{ post.id }}">
   <a name="{{ post.id }}"></a>
   {% include 'post-details.html' %}
   {% if post.image %}
   {% include 'file-details.html' %}
   {% include 'post-image.html' %}
   {% endif %}
+  <div class="post-body">
   {% if page %}
-  {{ post.body|truncatechars:500|markdownify|safe }}
+  {% include 'post-body-preview.html' %}
   {% else %}
-  {{ post.body|markdownify|safe }}
+  {% include 'post-body.html' %}
   {% endif %}
+  </div>
 </div>
 <br>

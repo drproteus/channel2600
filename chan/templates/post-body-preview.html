@@ -1,0 +1,5 @@
+{% load chan_extras %}
+{{ post.body|truncatechars:500|markdownify|safe }}
+{% ifnotequal post.body|truncatechars:500|markdownify|safe|length post.body|truncatechars:501|markdownify|safe|length %}
+<br><a href="#{{ post.id }}" onclick="expandPost({{ post.id }})">post truncated, read more</a>
+{% endifnotequal %}

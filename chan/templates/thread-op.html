@@ -9,15 +9,17 @@
   {% include 'post-details.html' %}
   <div class="thread-body">
   {% if page %}
-  {{ post.body|truncatechars:500|markdownify|safe }}
+  {% include 'post-body-preview.html' %}
   {% else %}
-  {{ post.body|markdownify|safe }}
+  {% include 'post-body.html' %}
   {% endif %}
   </div>
   {% if thread_more %}
   <div class="thread-more">
+    {% if thread.posts.count > 6 %}
     <a href="#{{ thread.id }}" 
       onclick="expandThread({{thread.id}})" class="expand-thread" data-thread-id="{{ thread.id }}">+</a>
+    {% endif %}
     {{ thread.posts.count }} post{{ thread.posts.count|pluralize }}. <a href="/thread/{{ thread.id }}/#{{ thread.id }}">Click here</a> to view
   </div>
   {% endif %}

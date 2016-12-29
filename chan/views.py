@@ -143,3 +143,6 @@ def full_thread(request, id):
         'posts': posts
         })
 
+def post_body(request, id):
+    post = get_object_or_404(Post, id=id)
+    return render(request, 'post-body.html', {'post': post})
