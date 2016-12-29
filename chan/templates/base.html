@@ -12,7 +12,8 @@
       {% endfor %} 
       </div>
       <div class="banner">
-        <a href="/"><img src="{% static "chan/images/banner0.jpg" %}"></img></a>
+        {% static "" as baseUrl %}
+        <a href="/"><img src="{{ baseUrl }}chan/images/{{ banner|default:"banner0.jpg" }}"></img></a>
       </div>
       <div class="title">
         {% if board %}

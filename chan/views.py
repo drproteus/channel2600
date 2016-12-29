@@ -1,10 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage
 from django.http import Http404, HttpResponse
 from chan.models import *
 from chan.forms import *
 import cloudinary
+
+def handler404(request):
+    boards = Board.objects.all()
+    response = render(request, 'base.html', {'title': "404", 'boards': boards, 'banner': "404.png"})
+    response.status_code = 404
+    return response
 
 def index(request):
     boards = Board.objects.all()
@@ -14,7 +20,10 @@ def board_index(request, slug, page=1):
     boards = Board.objects.all()
     board = get_object_or_404(Board, slug=slug)
     all_threads = Paginator(board.thread_set.order_by("-sticky", "-updated_at"), 10)
-    threads = all_threads.page(page)
+    try:
+        threads = all_threads.page(page)
+    except EmptyPage:
+        raise Http404
     next_page = min(int(page)+1, all_threads.num_pages)
     return render(request, 'board.html', {'title': board.name,
         'boards': boards, 'board': board, 'threads': threads,
