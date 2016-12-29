@@ -17,6 +17,10 @@ a {
     text-decoration: none;
 }
 
+ul, ol {
+    padding-left: 20px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
