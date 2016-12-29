@@ -37,6 +37,12 @@ class Thread(models.Model):
             posts.extend(all_posts[post_count-5:])
         return posts
 
+    def preview_inverse(self):
+        if self.posts.count() < 6:
+            return []
+        return list(self.posts.order_by("id"))[1:-5]
+
+
     def __str__(self):
         return self.subject.encode('utf-8')
 

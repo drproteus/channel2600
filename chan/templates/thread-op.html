@@ -16,6 +16,8 @@
   </div>
   {% if thread_more %}
   <div class="thread-more">
+    <a href="#{{ thread.id }}" 
+      onclick="expandThread({{thread.id}})" class="expand-thread" data-thread-id="{{ thread.id }}">+</a>
     {{ thread.posts.count }} post{{ thread.posts.count|pluralize }}. <a href="/thread/{{ thread.id }}/#{{ thread.id }}">Click here</a> to view
   </div>
   {% endif %}

@@ -22,7 +22,7 @@
           {% if thread.locked %}
           <h5>Thread is locked. You won't be able to reply.<h5>
           {% else %}
-          {% include 'reply.html' %}
+          <a href="#reply-form" class="reply-to">[ reply ]</a>
           {% endif %}
         {% else %}
         <a href="/board/{{ board.slug }}/new_thread/">[ new thread ]</a>
@@ -37,6 +37,11 @@
       {% block content %}{% endblock %}
     </div>
   </body>
+  {% if thread and not thread.locked%}
+  <div class="reply-form hidden">
+  {% include 'reply.html' %}
+  </div>
+  {% endif %}
   <div class="footer">
       <div class="board-list">
       {% for board in boards %}

@@ -25,10 +25,16 @@ function initThumbnails() {
 function initReplyLinks() {
   document.querySelectorAll('.reply-to').forEach(function(item) {
     item.addEventListener('click', function(event) {
+      document.querySelector('.reply-form').classList.remove('hidden');
       var replyId = event.target.dataset['postId'];
-      document.querySelector('#id_body').value += ('\n>>' + replyId + '\n');
+      if (replyId)
+        document.querySelector('#id_body').value += ('\n>>' + replyId + '\n');
     });
   });
+}
+
+function hideReplyForm() {
+  document.querySelector('.reply-form').classList.add('hidden');
 }
 
 function addYoutubeEmbedLinks() {
@@ -55,6 +61,33 @@ function youtubeEmbedLink(id) {
   return embedlink;
 }
 
+function expandThread(id) {
+  var embedThread = document.querySelector('#thread-embed-'+id);
+  if (embedThread) {
+    embedThread.classList.toggle('hidden');
+  } else {
+    var request = new XMLHttpRequest();
+    request.open('GET', '/thread/'+id+'/posts/', true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        var embedDiv = document.createElement('div');
+        embedDiv.classList.add('thread-embed');
+        embedDiv.id = 'thread-embed-'+id;
+        embedDiv.innerHTML = request.responseText;
+        var parent = document.querySelector('#thread-'+id+' .thread-op');
+        insertAfter(parent, embedDiv);
+      } else {
+      }
+    }
+    request.send();
+  }
+  var expandLink = document.querySelector('#thread-'+id+' .expand-thread');
+  if (expandLink.innerHTML === '+') {
+    expandLink.innerHTML = '-';
+  } else {
+    expandLink.innerHTML = '+';
+  }
+}
 
 function insertAfter(element, after) {
   element.parentNode.insertBefore(after, element.nextSibling);

@@ -132,3 +132,14 @@ def process_replies(body):
             except:
                 lines[i] = ">{}\n".format(lines[i].replace('>', '\>'))
     return "\n".join(lines), replies
+
+def full_thread(request, id):
+    thread = get_object_or_404(Thread, id=id)
+    board = thread.board
+    posts = thread.preview_inverse()
+    return render(request, 'thread-embed.html', {
+        'thread': thread,
+        'board': board,
+        'posts': posts
+        })
+
