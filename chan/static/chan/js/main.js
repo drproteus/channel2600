@@ -122,6 +122,9 @@ function expandThread(id) {
         embedDiv.classList.add('thread-embed');
         embedDiv.id = 'thread-embed-'+id;
         embedDiv.innerHTML = request.responseText;
+        embedDiv.querySelectorAll('code').forEach(function(el) {
+          hljs.highlightBlock(el);
+        });
         var parent = document.querySelector('#thread-'+id+' .thread-op');
         insertAfter(parent, embedDiv);
         addEmbedLinks()
@@ -146,7 +149,9 @@ function expandPost(id) {
     if (request.status >= 200 && request.status < 400) {
       bodyDiv.innerHTML = request.responseText;
       addEmbedLinks();
-      hljs.initHighlighting();
+      bodyDiv.querySelectorAll('code').forEach(function(el) {
+        hljs.highlightBlock(el);
+      });
     } else {
     }
   }
