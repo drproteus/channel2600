@@ -145,7 +145,8 @@ function expandPost(id) {
   request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
       bodyDiv.innerHTML = request.responseText;
-      addEmbedLinks()
+      addEmbedLinks();
+      hljs.initHighlighting();
     } else {
     }
   }
@@ -159,3 +160,4 @@ function insertAfter(element, after) {
 ready(initThumbnails);
 ready(initReplyLinks);
 ready(addEmbedLinks);
+ready(hljs.initHighlighting)
