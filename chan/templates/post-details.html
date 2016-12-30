@@ -11,6 +11,6 @@
   {% endif %}
   <span class="post-author">{{ post.author }}</span>
   <span class="post-date">{{ post.created_at|date }} {{ post.created_at|time }}</span>
-  <span class="post-id">No. <a class="reply-to" data-post-id="{{ post.id }}" href={% if page %}"/thread/{{ thread.id }}/#{{ post.id }}"{% else %}"#reply-form"{% endif %}>{{ post.id }}</a></span>
-  <span class="post-replies">{% for reply in post.replies.all %}<a href="/thread/{{ thread.id }}/#{{reply.post.id}}">>>{{reply.post.id}}</a>{% endfor %}</span>
+  <span class="post-id">No. <a class="reply-to" data-post-id="{{ post.id }}" href={% if page %}"/thread/{{ post.thread.id }}/#{{ post.id }}"{% else %}"#reply-form"{% endif %}>{{ post.id }}</a></span>
+  <span class="post-replies">{% for reply in post.replies.all %}<a href="/thread/{{ reply.post.thread.id }}/#{{reply.post.id}}">>>{{reply.post.id}}</a>{% endfor %}</span>
 </div>
