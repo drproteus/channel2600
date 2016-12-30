@@ -137,9 +137,9 @@ def process_replies(body):
                     lines[i] = ">[>>{}](/thread/{}/#{})\n".format(post_id, post.thread.id, post_id)
                     replies.append(post)
                 else:
-                    lines[i] = ">{}\n".format(lines[i].replace('>', '\>'))
+                    lines[i] = ">{}".format(lines[i].replace('>', '\>'))
             except:
-                lines[i] = ">{}\n".format(lines[i].replace('>', '\>'))
+                lines[i] = ">{}".format(lines[i].replace('>', '\>'))
     return "\n".join(lines), replies
 
 def full_thread(request, id):

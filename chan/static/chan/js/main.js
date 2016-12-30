@@ -28,7 +28,7 @@ function initReplyLinks() {
       document.querySelector('.reply-form').classList.remove('hidden');
       var replyId = event.target.dataset['postId'];
       if (replyId)
-        document.querySelector('#id_body').value += ('\n>>' + replyId + '\n');
+        document.querySelector('#id_body').value += ('>>' + replyId + '\n');
     });
   });
 }
