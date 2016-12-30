@@ -146,10 +146,12 @@ def full_thread(request, id):
     thread = get_object_or_404(Thread, id=id)
     board = thread.board
     posts = thread.preview_inverse()
+    page = 1
     return render(request, 'thread-embed.html', {
         'thread': thread,
         'board': board,
-        'posts': posts
+        'posts': posts,
+        'page': page
         })
 
 def post_body(request, id):
