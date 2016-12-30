@@ -72,8 +72,21 @@ function soundcloudEmbedLink(href) {
 function addYoutubeEmbedLinks() {
   var youtubelinks = [].slice.call(document.querySelectorAll('a')).filter(function(el) {
     if (!el.classList.contains('embed-link') && !el.classList.contains('embedded')) {
-      if (el.href.indexOf('youtu.be') !== -1 || el.href.indexOf('youtube') !== -1) {
-        var id = el.href.split('/').slice(-1)[0];
+      var startAt = '';
+      var link = '';
+      var timeIndex = el.href.indexOf('?t=');
+      if (timeIndex !== -1) {
+        startAt = '?t='+el.href.split('?t=').slice(-1)[0];
+        link = el.href.slice(0, timeIndex);
+      } else {
+        link = el.href;
+      }
+      if (link.indexOf('youtu.be') !== -1) {
+        var id = link.split('/').slice(-1)[0]+startAt;
+        insertAfter(el, youtubeEmbedLink(id));
+        el.classList.add('embedded');
+      } else if (link.indexOf('youtube') !== -1) {
+        var id = el.href.split('=').slice(-1)[0]+startAt;
         insertAfter(el, youtubeEmbedLink(id));
         el.classList.add('embedded');
       }
