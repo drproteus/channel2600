@@ -27,8 +27,10 @@ function initReplyLinks() {
     item.addEventListener('click', function(event) {
       document.querySelector('.reply-form').classList.remove('hidden');
       var replyId = event.target.dataset['postId'];
-      if (replyId)
+      if (replyId) {
         document.querySelector('#id_body').value += ('>>' + replyId + '\n');
+        focusPost(replyId);
+      }
     });
   });
 }
@@ -162,7 +164,27 @@ function insertAfter(element, after) {
   element.parentNode.insertBefore(after, element.nextSibling);
 }
 
+function focusPostOnHash() {
+  var postId = location.hash.slice(1);
+  if (postId !== 'reply-form')
+    focusPost(postId);
+}
+
+function focusPost(postId) {
+  document.querySelectorAll('.post').forEach(function(el) {
+    el.classList.remove('focused');
+  });
+  try {
+    console.log(postId);
+    document.querySelector('.post#post-'+postId).classList.add('focused');
+  }
+  catch (e) {
+  }
+}
+
 ready(initThumbnails);
 ready(initReplyLinks);
 ready(addEmbedLinks);
-ready(hljs.initHighlighting)
+ready(focusPostOnHash);
+ready(hljs.initHighlighting);
+window.addEventListener("hashchange", focusPostOnHash);

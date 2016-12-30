@@ -131,7 +131,7 @@ ul, ol {
 }
 
 .post-details {
-    margin-bottom: 10px;
+    display: inline-block;
 }
 
 .post-details .thread-subject {
@@ -268,4 +268,8 @@ ul.errorlist {
     width: 24px;
     overflow: hidden;
     margin-top: -5px;
+}
+
+.focused {
+    background: #cdc;
 }
