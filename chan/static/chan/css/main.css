@@ -134,6 +134,10 @@ ul, ol {
     display: inline-block;
 }
 
+.thread-op .post-details {
+    margin-bottom: 10px;
+}
+
 .post-details .thread-subject {
     color: purple;
     font-weight: bold;
