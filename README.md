@@ -2,7 +2,7 @@
 
 In an effort to stop myself going to dumb sites on the internet, I decided to make my own dumb site.
 
-It's built with Django. Try it out!
+It's built with Django. [Try it out!](https://channel2600.herokuapp.com/)
 
 ![thread](http://i.imgur.com/zDmvFHX.png)
 
