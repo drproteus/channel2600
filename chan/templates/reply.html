@@ -1,5 +1,5 @@
 <a name="reply-form"></a>
-<form class="new-form" action="/thread/{{ thread.id }}/reply/" method="POST"
+<form class="new-form" action="/thread/{{ thread.id }}/" method="POST"
   enctype="multipart/form-data">{% csrf_token %}
   <a href="#reply-form" onclick="hideReplyForm()" style="float: right;">✖</a>
   {{ form.as_p }}

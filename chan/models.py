@@ -63,6 +63,7 @@ class Post(models.Model):
     height = models.IntegerField(default=0, blank=True)
     filesize = models.DecimalField(default=0, decimal_places=1, max_digits=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_op = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -95,6 +96,18 @@ class Ban(models.Model):
 @receiver(post_delete, sender=Post)
 def delete_cloudinary_image(sender, instance, **kwargs):
     cloudinary.api.delete_resources([instance.image])
+
+@receiver(post_delete, sender=Post)
+def promote_next_post(sender, instance, **kwargs):
+    if instance.is_op and instance.thread.posts.count() > 0:
+        post = instance.thread.posts.first()
+        post.is_op = True
+        post.save(update_fields=['is_op'])
+
+@receiver(post_delete, sender=Post)
+def delete_parent_thread_if_last(sender, instance, **kwargs):
+    if instance.thread.posts.count() == 0:
+        instance.thread.delete()
 
 admin.site.register(Board)
 admin.site.register(Thread)

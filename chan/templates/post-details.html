@@ -1,6 +1,6 @@
 {% load cloudinary %}
 <div class="post-details">
-  {% if post.id == thread.id %}
+  {% if post.is_op %}
   <span class="thread-subject">{{ thread.subject }}</span>
   {% if thread.sticky %}
   <span>📌  </span>
