@@ -129,7 +129,8 @@ function expandThread(id) {
         });
         var parent = document.querySelector('#thread-'+id+' .thread-op');
         insertAfter(parent, embedDiv);
-        addEmbedLinks()
+        initThumbnails();
+        addEmbedLinks();
       } else {
       }
     }
