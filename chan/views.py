@@ -40,13 +40,25 @@ def thread(request, id):
     else:
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
+            if thread.locked:
+                raise ValidationError, "Thread is locked. You cannot reply."
             author = form.cleaned_data['author']
-            image = ""
+            body, replies = process_replies(form.cleaned_data['body'])
+            image = filename = ""
+            height = width = filesize = 0
             if request.FILES.get('image'):
                 upload_response = cloudinary.uploader.upload(request.FILES['image'])
                 image = upload_response['public_id']
-            new_post = Post.objects.create(author=author, body=body, image=image, thread=thread)
-            return redirect('/thread/{}/'.format(thread.id))
+                filename = request.FILES['image'].name
+                height = upload_response['height']
+                width = upload_response['width']
+                filesize = upload_response['bytes'] / 1024.0
+            new_post = Post.objects.create(author=author, body=body, image=image, thread=thread,
+                    filename=filename, height=height, width=width, filesize=filesize)
+            thread.save()
+            for reply in replies:
+                Reply.objects.create(parent_post=reply, post=new_post)
+            return redirect('/thread/{}/#{}'.format(thread.id, new_post.id))
     return render(request, 'thread.html', {
         'title': thread.board.name,
         'board': board,
@@ -78,48 +90,13 @@ def new_thread(request, slug):
                 filesize = upload_response['bytes'] / 1024.0
             new_thread = Thread.objects.create(subject=subject, board=board)
             new_post = Post.objects.create(id=new_thread.id, author=author, body=body, image=image, thread=new_thread,
-                    filename=filename, height=height, width=width, filesize=filesize)
+                    filename=filename, height=height, width=width, filesize=filesize,
+                    is_op=True)
             for reply in replies:
                 Reply.objects.create(parent_post=reply, post=new_post)
             return redirect('/thread/{}/#{}'.format(new_thread.id, new_thread.id))
     return render(request, 'new_thread.html', {
         'form': form,
-        'boards': boards,
-        'board': board,
-        'title': board.name
-        })
-
-def reply(request, id):
-    boards = Board.objects.all()
-    thread = get_object_or_404(Thread, id=id)
-    board = thread.board
-    if request.method == 'GET':
-        return redirect('/thread/{}/'.format(thread.id))
-    else:
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            if thread.locked:
-                raise ValidationError, "Thread is locked. You cannot reply."
-            author = form.cleaned_data['author']
-            body, replies = process_replies(form.cleaned_data['body'])
-            image = filename = ""
-            height = width = filesize = 0
-            if request.FILES.get('image'):
-                upload_response = cloudinary.uploader.upload(request.FILES['image'])
-                image = upload_response['public_id']
-                filename = request.FILES['image'].name
-                height = upload_response['height']
-                width = upload_response['width']
-                filesize = upload_response['bytes'] / 1024.0
-            new_post = Post.objects.create(author=author, body=body, image=image, thread=thread,
-                    filename=filename, height=height, width=width, filesize=filesize)
-            thread.save()
-            for reply in replies:
-                Reply.objects.create(parent_post=reply, post=new_post)
-            return redirect('/thread/{}/#{}'.format(thread.id, new_post.id))
-    return render(request, 'thread.html', {
-        'form': form,
-        'thread': thread,
         'boards': boards,
         'board': board,
         'title': board.name

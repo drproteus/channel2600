@@ -23,7 +23,6 @@ urlpatterns = [
     url(r'^board/([a-z]+)/(\d+)/$', board_index),
     url(r'^thread/(\d+)/$', thread),
     url(r'^board/([a-z]+)/new_thread/$', new_thread),
-    url(r'^thread/(\d+)/reply/$', reply),
     url(r'^thread/(\d+)/posts/$', full_thread),
     url(r'^post/(\d+)/$', post_body),
 ]
