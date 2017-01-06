@@ -4,6 +4,10 @@ In an effort to stop myself going to dumb sites on the internet, I decided to ma
 
 It's built with Django. Try it out!
 
+[Imgur](http://i.imgur.com/zDmvFHX.png)
+
+[Imgur](http://i.imgur.com/dqAS4hZ.png)
+
 ## Local Install
 
 ### Requirements
