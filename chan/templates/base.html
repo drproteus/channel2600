@@ -43,11 +43,4 @@
   {% include 'reply.html' %}
   </div>
   {% endif %}
-  <div class="footer">
-      <div class="board-list">
-      {% for board in boards %}
-      <a href="/board/{{ board.slug }}/">/{{ board.slug }}/</a>
-      {% endfor %} 
-      <a class="self" href="http://drproteus.github.io"><img class="serling" src="{{ baseUrl }}chan/images/serling.jpg"></img></a>
-  </div>
 </html>
