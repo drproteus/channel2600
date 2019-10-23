@@ -1,6 +1,6 @@
 cloudinary==1.5.0
 dj-database-url==0.4.1
-Django==1.8.13
+Django==1.11.23
 django-recaptcha==1.2.0
 gunicorn==19.6.0
 Markdown==2.6.7
