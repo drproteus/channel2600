@@ -5,6 +5,6 @@ django-recaptcha==1.2.0
 gunicorn==19.6.0
 Markdown==2.6.7
 six==1.10.0
-urllib3==1.26.5
+urllib3==1.26.18
 whitenoise==3.2.2
 psycopg2
